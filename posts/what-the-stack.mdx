@@ -1,0 +1,54 @@
+---
+title: What the stack
+subtitle: What I used to build this site
+date: 2023/03/27
+tags:
+  - react
+  - ts
+  - zod
+---
+
+## Introduction
+In this blog post, I will discuss the various technologies I used to build my
+recent project. I will cover the frameworks and libraries that made the
+development process smooth and efficient.
+
+## Remix
+To begin with, I utilized [Remix.run](https://remix.run/), a React meta framework developed by the React Router team, and recently acquired by Shopify. 
+Remix is a full-stack framework that focuses on server-side rendering (SSR)
+while embracing web standards. I chose Remix because I wanted to work on a real
+project with it, and also because Next.js is currently in a confusing state
+between version 12 and beta version 13.
+
+## Typescript
+I have been learning Typescript for the past two months, and I must say I am
+really enjoying it. This project was an opportunity for me to use Typescript in
+a complete (small) project. I am convinced that Typescript is the future of
+Javascript, and I cannot wait to use it daily at work.
+
+## Zod
+I used [Zod](https://zod.dev/) to validate my data. It is an excellent way to
+have a schema that is also a type. This approach provides a single source of
+truth for my data, which gives me confidence that my data is valid at runtime.
+This makes it easy to use in my code without the need to check its validity.
+
+## Tailwind
+For styling, I opted for [Tailwind](https://tailwindcss.com/), a utility-first
+CSS framework. I preferred not to use a component library like MUI or Chakra, as
+I wanted to keep the site as simple as possible. Also, I wanted to have a better
+understanding of how Tailwind works and how to customize it. However, I found it
+a bit tricky to set up with postcss, etc. Next time, I would like to try twind,
+which is a Tailwind-in-JS solution 
+
+## Strapi
+Lastly, I used [Strapi](https://strapi.io/) as a headless CMS. I had been
+wanting to try it for a long time, and I am pleased with the results. The UI is
+attractive, and the API is easy to use. I hope it will scale nicely as the site
+grows.
+
+## Deployment
+I deployed the frontend, backend, and database using [Fly.io](https://fly.io/).
+Initially, I planned to deploy the backend on Heroku and the frontend on Vercel.
+However, I found out that Heroku no longer offers free plans. After deploying
+the backend and database on Fly.io, I still had a free VM to use. So, I decided
+to deploy the frontend on Fly.io as well.
