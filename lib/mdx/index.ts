@@ -18,6 +18,8 @@ export type PostMeta = PostFrontMatter & {
   readingTime: number;
 };
 
+export type Post = ReturnType<typeof getPostBySlug>;
+
 export const getPostBySlug = async (slug: string) => {
   const realSlug = slug.replace(/\.mdx$/, '');
   const filePath = path.join(rootDirectory, `${realSlug}.mdx`);
@@ -43,8 +45,6 @@ export const getPostBySlug = async (slug: string) => {
     content,
   };
 };
-
-export type Post = ReturnType<typeof getPostBySlug>;
 
 export const getAllPostsMeta = async () => {
   const files = fs.readdirSync(rootDirectory);
