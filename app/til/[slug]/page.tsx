@@ -32,7 +32,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
       <h1>{meta.title}</h1>
       <h2>{meta.subtitle}</h2>
       {!!meta.tags?.length && <TagList tags={meta.tags} />}
-      <div className="h-1 w-4/5 bg-rose-300 mx-auto my-8" />
+      <div className="h-1 w-full bg-rose-300 my-8" />
       {content}
     </div>
   );
