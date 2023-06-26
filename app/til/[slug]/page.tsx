@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   const posts = await getAllPostsMeta();
 
   // Generate 10 latest posts
-  return posts.slice(0, 1).map(({ slug }) => ({
+  return posts.slice(0, 10).map(({ slug }) => ({
     slug,
   }));
 }
