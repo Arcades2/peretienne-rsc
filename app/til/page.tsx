@@ -3,16 +3,26 @@ import type { PostMeta } from '@/lib/mdx';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import TagList from './components/TagList';
+import SearchInput from './components/SearchInput';
 
-export default async function TILPage() {
-  const posts = await getAllPostsMeta();
+type TILPageProps = {
+  searchParams: {
+    q?: string;
+  };
+};
+
+export default async function TILPage({ searchParams }: TILPageProps) {
+  const posts = await getAllPostsMeta(searchParams.q);
 
   return (
-    <ul className="divide-y-2">
-      {posts.map((post) => {
-        return <PostCard key={post.title} post={post} />;
-      })}
-    </ul>
+    <div className="flex flex-col items-center">
+      <SearchInput />
+      <ul className="divide-y-2">
+        {posts.map((post) => {
+          return <PostCard key={post.title} post={post} />;
+        })}
+      </ul>
+    </div>
   );
 }
 

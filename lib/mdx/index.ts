@@ -46,15 +46,24 @@ export const getPostBySlug = async (slug: string) => {
   };
 };
 
-export const getAllPostsMeta = async () => {
+export const getAllPostsMeta = async (search?: string) => {
   const files = fs.readdirSync(rootDirectory);
 
-  const postsMeta = await Promise.all(
-    files.map(async (file) => {
-      const { meta } = await getPostBySlug(file);
-      return meta;
-    }),
-  );
+  const postsMeta = (
+    await Promise.all(
+      files.map(async (file) => {
+        const { meta } = await getPostBySlug(file);
+        return meta;
+      }),
+    )
+  ).filter((post) => {
+    if (!search) return true;
+    return (
+      post.title.toLowerCase().includes(search.toLowerCase()) ||
+      post.subtitle?.toLowerCase().includes(search.toLowerCase()) ||
+      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
+    );
+  });
 
   return postsMeta.sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
