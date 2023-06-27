@@ -3,6 +3,8 @@ import { Fira_Code } from 'next/font/google';
 import classNames from 'classnames';
 import Link from 'next/link';
 import ProgressIndicator from '@/app/components/ProgressIndicator';
+import Providers from './providers';
+import SigninButton from './components/SigninButton';
 
 const firaCode = Fira_Code({ subsets: ['latin'] });
 
@@ -24,29 +26,39 @@ export default function RootLayout({
           'bg-slate-900 pb-8 min-h-screen',
         )}
       >
-        <div className=" mb-8 sticky top-0 bg-slate-900">
-          <div className="p-2">
-            <div className="container mx-auto flex gap-2">
-              <Link href="/" className="text-rose-300 hover:text-rose-500">
-                Home
-              </Link>
-              <span>|</span>
-              <Link href="/til" className="text-rose-300 hover:text-rose-500">
-                <span className="flex gap-1 group">
-                  <span className="transition-[width] duration-300 overflow-hidden group-hover:w-[5ch] group-[.active]/navlink:w-[5ch] w-[1ch]">
-                    Today
-                  </span>
-                  <span>I</span>
-                  <span className="transition-[width] duration-300 overflow-hidden w-[1ch] group-hover:w-[7ch] group-[.active]/navlink:w-[7ch]">
-                    Learned
-                  </span>
-                </span>
-              </Link>
+        <Providers>
+          <div className=" mb-8 sticky top-0 bg-slate-900">
+            <div className="p-2">
+              <div className="container mx-auto flex justify-between">
+                <div className="flex gap-2">
+                  <Link href="/" className="text-rose-300 hover:text-rose-500">
+                    Home
+                  </Link>
+                  <span>|</span>
+                  <Link
+                    href="/til"
+                    className="text-rose-300 hover:text-rose-500"
+                  >
+                    <span className="flex gap-1 group">
+                      <span className="transition-[width] duration-300 overflow-hidden group-hover:w-[5ch] group-[.active]/navlink:w-[5ch] w-[1ch]">
+                        Today
+                      </span>
+                      <span>I</span>
+                      <span className="transition-[width] duration-300 overflow-hidden w-[1ch] group-hover:w-[7ch] group-[.active]/navlink:w-[7ch]">
+                        Learned
+                      </span>
+                    </span>
+                  </Link>
+                </div>
+                <div>
+                  <SigninButton />
+                </div>
+              </div>
             </div>
+            <ProgressIndicator />
           </div>
-          <ProgressIndicator />
-        </div>
-        {children}
+          {children}
+        </Providers>
       </body>
     </html>
   );
