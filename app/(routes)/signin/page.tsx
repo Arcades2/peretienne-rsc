@@ -1,4 +1,5 @@
-import GoogleButton from './components/GoogleButton';
+import GoogleButton from '@/app/_components/GoogleButton';
+
 export default function SignInPage() {
   return (
     <div className="container mx-auto text-center">

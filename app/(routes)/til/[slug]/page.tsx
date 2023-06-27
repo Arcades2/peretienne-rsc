@@ -1,5 +1,5 @@
 import { getAllPostsMeta, getPostBySlug } from '@/lib/mdx';
-import TagList from '@/app/til/components/TagList';
+import TagList from '@/app/_components/TagList';
 import './github-theme.css';
 
 export async function generateMetadata({

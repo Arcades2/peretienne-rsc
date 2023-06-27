@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import Button from '@/components/Button';
+import Button from '@/app/_components/Button';
 import Image from 'next/image';
 
 export default function GoogleButton() {

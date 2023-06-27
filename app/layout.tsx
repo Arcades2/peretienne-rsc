@@ -2,9 +2,9 @@ import './globals.css';
 import { Fira_Code } from 'next/font/google';
 import classNames from 'classnames';
 import Link from 'next/link';
-import ProgressIndicator from '@/app/components/ProgressIndicator';
-import Providers from './providers';
-import SigninButton from './components/SigninButton';
+import ProgressIndicator from '@/app/_components/ProgressIndicator';
+import Providers from './Providers';
+import SigninButton from '@/app/_components/SigninButton';
 
 const firaCode = Fira_Code({ subsets: ['latin'] });
 

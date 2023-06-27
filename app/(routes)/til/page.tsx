@@ -3,8 +3,8 @@ import { getAllPostsMeta } from '@/lib/mdx';
 import type { PostMeta } from '@/lib/mdx';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import TagList from './components/TagList';
-import SearchInput from './components/SearchInput';
+import TagList from '@/app/_components/TagList';
+import SearchInput from '@/app/_components/SearchInput';
 
 type TILPageProps = {
   searchParams: {

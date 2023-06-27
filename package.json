@@ -7,6 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "local:build": "dotenv -e .env.development.local next build",
     "migrate:dev": "dotenv -e .env.development.local npx prisma migrate dev"
   },
   "dependencies": {
