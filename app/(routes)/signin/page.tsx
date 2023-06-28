@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import GoogleButton from '@/app/_components/GoogleButton';
 
 export default function SignInPage() {
@@ -5,7 +6,9 @@ export default function SignInPage() {
     <div className="container mx-auto text-center">
       <h1>Sign In</h1>
       <div className="mt-10">
-        <GoogleButton />
+        <Suspense fallback={null}>
+          <GoogleButton />
+        </Suspense>
       </div>
     </div>
   );

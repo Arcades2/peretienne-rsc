@@ -26,6 +26,7 @@ export default function Button(
           ease-out hover:bg-opacity-100
           `,
         shouldDarkText ? 'text-balck dark:text-white' : 'text-white',
+        props.disabled ? 'opacity-50 cursor-not-allowed' : '',
         props.className,
       )}
     />
