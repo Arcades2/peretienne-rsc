@@ -12,6 +12,11 @@ type TILPageProps = {
   };
 };
 
+export const metadata = {
+  title: 'Today I Learned',
+  description: 'A collection of things I learned.',
+};
+
 export default async function TILPage({ searchParams }: TILPageProps) {
   const posts = await getAllPostsMeta(searchParams.q);
 

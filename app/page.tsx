@@ -1,5 +1,10 @@
 import Image from 'next/image';
 
+export const metadata = {
+  title: 'Etienne Peret | Fullstack Dev',
+  description: 'Etienne Peret | Fullstack Dev',
+};
+
 export default function Home() {
   return (
     <main className="absolute top-1/2 -translate-y-1/2 left-0 right-0">
