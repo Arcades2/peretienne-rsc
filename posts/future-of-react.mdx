@@ -1,0 +1,188 @@
+---
+title: The Future of React
+subtitle: I switched to React Server Components
+date: 2023/08/27
+tags:
+  - nextjs
+  - rsc
+---
+
+# From Remix to Nextjs
+
+In my post [What the stack](./what-the-stack), I mentioned that Remix was part of my stack because I
+thought Next.js was in a weird state. On May 4th, Vercel announced that their
+new "app Router" is now stable, cohabiting with the old one now named "page
+router." It still seems a bit strange, but it's now stable. I thought it was
+time to see what a great team like Vercel did with this new iteration of
+Next.js.
+
+# I am not sure to understand...
+
+While it was still in beta and even after it was declared stable, I spent a lot
+of time reading the new router documentation, following Dan Abramov's Twitter
+threads, trying to understand the new concepts this new router introduced, etc.
+However, I couldn't wrap my head around it. Every time I thought I understood
+it, experimenting with it proved me wrong multiple times. It seems I wasn't
+alone, as even some of the greatest engineers seemed confused as well.
+
+![Confused tkdodo](/tkdodo_rsc_tweet.png)
+
+# Ok, I guess I get what RSC brings now
+
+After a lot of trial and error and confusion, I thought that the best way to
+grasp it was to create something with it. I decided to rewrite my personal
+website using it, as I also wanted to switch from Fly.io to Vercel. The homepage
+was basically copy and paste, but the "Today I Learned" page was different.
+Thanks to React Server Components, which are asynchronous components running
+only on the server, I could now place my server code **inside** my components.
+
+![TIL page](/til_page_rsc.png)
+
+
+This means that you can to that:
+
+![sql in component](/sql_in_component_dan_tweet.png)
+
+It was one of the tweet that made me understand the mental model behind RSC.
+
+What it implies, and as Dan Abramov says:
+
+![Never write API again](/never_write_api_dan_tweet.png)
+
+I mean, if you have no interest to share your API, why would you write it ? Just
+fetch what you want directly where you need !
+
+However, there's no such thing as a free lunch. While you can perform
+asynchronous tasks in RSC, what you can't do is define interactivity. No
+useState, no useEffect, no event handlings are allowed in those server components. You also can't
+use a library that would provide it. For interactivity, you have to create a
+**separate file** that includes the mention "use client" for Next.js to understand
+that it's a client-side file. 
+
+```jsx
+"use client";
+
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+So how to compose between those two worlds ? Firstly, you can use a client
+component in a server component with no problem, but you can't do the opposite.
+The only way you can do that is by passing Server Components as props to client
+comoponents.
+
+Here is an example from the Nextjs doc
+
+client-component.js
+```jsx
+'use client'
+ 
+import { useState } from 'react'
+ 
+export default function ClientComponent({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const [count, setCount] = useState(0)
+ 
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+      {children}
+    </>
+  )
+}
+```
+
+server-component.js
+```jsx
+// This pattern works:
+// You can pass a Server Component as a child or prop of a
+// Client Component.
+import ClientComponent from './client-component'
+import ServerComponent from './server-component'
+ 
+// Pages in Next.js are Server Components by default
+export default function Page() {
+  return (
+    <ClientComponent>
+      <ServerComponent />
+    </ClientComponent>
+  )
+}
+```
+
+Since it was already difficult for me to wrap my head around all these new
+concepts and ways of thinking, I am definitely not the best person to explain
+it. Before making more mistakes while explaining it, I will let you read the
+[Nextjs
+doc](https://nextjs.org/docs/advanced-features/react-server-components)
+documentation, check out [Dan Abramov tweets](https://twitter.com/dan_abramov),
+and watch all the YouTube 
+videos made by tech influencers. 
+
+
+# What about App router ?
+
+In the previous section, I tried to (poorly) explain what RSC are and how they
+could change the way we build web apps. However, RSC is something new in the
+React library. What Next.js did is create an environment for us to use RSC in
+the best way possible. This environment is called the App Router. Firstly, I've
+never worked on anything big with Next.js, but I wasn't a big fan of file-based
+routing, and I think I'm even less of one with the app router. There are a lot
+of [file
+conventions](https://nextjs.org/docs/app/api-reference/file-conventions), and
+for me, it seems less flexible than a code-based 
+router. 
+
+Something I liked even less is how caching is handled. Maybe I'm not comfortable
+enough with it, but what a mess... I spent so much time trying to understand why
+my request was not cached or how to invalidate what I wanted. At the time I
+first played with it, the documentation didn't help me much, and I saw others on
+YouTube and Twitter complaining about it. More recently, they added this diagram
+to explain how it works: 
+
+![Caching diagram](/nextjs_caching.png)
+
+Seriously ? This thing is too complicated for me to keep in mind at all time. 
+
+# Conclusion
+
+To conclude, I believe that RSC is a great addition to
+React, and I am really excited to see what talented developers will achieve with
+it. As for what Next.js has done with it, I am not yet convinced, at least for
+now. It is always challenging to be the first to try something new, and I am
+confident that the app router will undergo significant evolution in the future.
+Will I recommend Next.js app router at my workplace? I think not. Next.js with
+the page router? Perhaps. I mainly work on SaaS projects that don't require SEO
+optimization, and where initial load time is not a major concern. I understand
+that for e-commerce, shaving off a few milliseconds from the initial load time
+by sending less JavaScript to the client is significant, but it doesn't hold the
+same weight for me.
+
+I have been working with React for five years now, and I believe I understand it
+well enough. However, comprehending RSC was quite challenging for me.
+Even Dan Abramov had a hard time explaining it to the community. It also took
+some time for bleeding-edge React evangelists and tech influencers to fully
+grasp it (https://www.youtube.com/watch?v=fmztj8hywlI). How junior developers
+will manage it? I'm uncertain. It's possible that our experience with React over
+the years has limited our ability to think differently, and in that case, they
+might actually be better suited to understand it. Alternatively, it could simply
+be too complex at the moment.
+
+Besides, there is also such good libraries on SPA side ! I am obviously thinking about [React
+Query](https://react-query.tanstack.com/), but also [trpc](https://trpc.io/).
+[Tanstack/router](https://tanstack.com/router/v1) is now in beta but already
+looks amazing...
+
+**I think I am good in my SPA world right now.**
