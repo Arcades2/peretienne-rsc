@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { getAllPostsMeta } from '@/lib/mdx';
 import type { PostMeta } from '@/lib/mdx';
 import Link from 'next/link';
@@ -22,9 +21,7 @@ export default async function TILPage({ searchParams }: TILPageProps) {
 
   return (
     <div className="flex flex-col items-center">
-      <Suspense fallback={null}>
-        <SearchInput />
-      </Suspense>
+      <SearchInput />
       <ul className="divide-y-2">
         {posts.map((post) => {
           return <PostCard key={post.title} post={post} />;

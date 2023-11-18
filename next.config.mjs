@@ -4,7 +4,7 @@ import './env.mjs';
 
 const nextConfig = {
   experimental: {
-    serverActions: true,
+    ppr: true,
   },
 };
 
