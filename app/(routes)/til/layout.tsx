@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+import { Suspense } from "react";
+
 type TILLayoutProps = {
   children: React.ReactNode;
 };
