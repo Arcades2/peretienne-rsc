@@ -4,7 +4,7 @@ import CvNav from "@/app/_components/CvNav";
 export default function CvPage() {
   return (
     <div className="container mx-auto">
-      <div className="sticky top-[110px]">
+      <div className="fixed top-[110px]">
         <CvNav />
       </div>
       <div className="container mx-auto prose dark:prose-invert md:prose-lg print:prose">
@@ -164,6 +164,23 @@ export default function CvPage() {
               approach through collaborative work.
             </p>
           </Experience>
+        </section>
+        <section id="contact" className="scroll-my-16 cv-sections">
+          <h2># Contact</h2>
+          <p>Telephone: 06 37 44 95 13</p>
+          <p>Mail: peret.etienne@gmail.com</p>
+          <p>
+            Github:{" "}
+            <a href="https://github.com/Arcades2" target="_blank">
+              https://github.com/Arcades2
+            </a>
+          </p>
+          <p>
+            Linkedin:{" "}
+            <a href="https://www.linkedin.com/in/etienne-peret" target="_blank">
+              https://www.linkedin.com/in/etienne-peret{" "}
+            </a>
+          </p>
         </section>
       </div>
     </div>

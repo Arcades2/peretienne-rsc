@@ -4,7 +4,7 @@ import React from "react";
 import toObject from "@/utils/toObject";
 import capitalize from "@/utils/capitalize";
 
-const CV_PARTS = ["presentation", "experiences"] as const;
+const CV_PARTS = ["presentation", "experiences", "contact"] as const;
 
 export default function CvNav() {
   const [activeAnchors, setActiveAnchors] = React.useState(

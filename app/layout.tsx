@@ -46,15 +46,7 @@ export default function RootLayout({
                     href="/til"
                     className="text-rose-300 hover:text-rose-500"
                   >
-                    <span className="flex gap-1 group">
-                      <span className="transition-[width] duration-300 overflow-hidden group-hover:w-[5ch] group-[.active]/navlink:w-[5ch] w-[1ch]">
-                        Today
-                      </span>
-                      <span>I</span>
-                      <span className="transition-[width] duration-300 overflow-hidden w-[1ch] group-hover:w-[7ch] group-[.active]/navlink:w-[7ch]">
-                        Learned
-                      </span>
-                    </span>
+                    Today I Learned
                   </Link>
                 </div>
                 <div>
