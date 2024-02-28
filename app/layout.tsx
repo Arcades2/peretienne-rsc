@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProgressIndicator from "@/app/_components/ProgressIndicator";
 import Providers from "./Providers";
 import SigninButton from "@/app/_components/SigninButton";
+import NavLink from "@/app/_components/NavLink";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
@@ -31,23 +32,11 @@ export default function RootLayout({
             <div className="p-2">
               <div className="container mx-auto flex justify-between">
                 <div className="flex gap-2">
-                  <Link href="/" className="text-rose-300 hover:text-rose-500">
-                    Home
-                  </Link>
+                  <NavLink path="/">Home</NavLink>
                   <span>|</span>
-                  <Link
-                    href="/cv"
-                    className="text-rose-300 hover:text-rose-500"
-                  >
-                    CV
-                  </Link>
+                  <NavLink path="/cv">CV</NavLink>
                   <span>|</span>
-                  <Link
-                    href="/til"
-                    className="text-rose-300 hover:text-rose-500"
-                  >
-                    Today I Learned
-                  </Link>
+                  <NavLink path="/til">Today I Learned</NavLink>
                 </div>
                 <div>
                   <SigninButton />
