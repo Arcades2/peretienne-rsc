@@ -79,6 +79,20 @@ export default function CvPage() {
               src: "/logo_oncodna.svg",
               alt: "Logo OncoDNA",
             }}
+            tags={[
+              "React",
+              "MUI",
+              "react-query",
+              "Symfony",
+              "Python",
+              "Google Cloud Platform",
+              "CICD",
+              "FastAPI",
+              "Node.js",
+              "Docker",
+              "ElasticSearch",
+              "Jira",
+            ]}
           >
             <p>
               Maintained and enhanced SaaS platforms{" "}
@@ -117,6 +131,16 @@ export default function CvPage() {
               src: "/place-au-cirque.png",
               alt: "Place au Cirque logo",
             }}
+            tags={[
+              "React",
+              "Symfony",
+              "React Native",
+              "Expo",
+              "MongoDB",
+              "Vuforia",
+              "Node.js",
+              "Socket.io",
+            ]}
           >
             <p>
               Developed REST API, back-office, and mobile apps for in-show and
@@ -139,6 +163,7 @@ export default function CvPage() {
             company="Wehub"
             dates="04/2017 - 02/2018"
             localisation="Pau"
+            tags={["Wordpress", "Symfony", "ElasticSearch", "MongoDB"]}
           >
             <p>
               As an entrepreneur, Wehub, a co-working and web solutions
@@ -193,6 +218,7 @@ type ExperienceProps = {
   logo?: React.ComponentProps<typeof Image>;
   localisation: string;
   children: any;
+  tags: React.ComponentProps<typeof TagList>["tags"];
 };
 
 function Experience({
@@ -201,6 +227,7 @@ function Experience({
   logo,
   localisation,
   children,
+  tags,
 }: ExperienceProps) {
   return (
     <div>
@@ -228,6 +255,59 @@ function Experience({
       </span>
       <div className="h-1 w-full bg-rose-300 my-8" />
       {children}
+      <TagList tags={tags} />
+      <div className="h-0.5 w-full my-8 border-dashed border-rose-300 border-t-[1px]" />
+    </div>
+  );
+}
+
+type TagListProps = {
+  tags: Array<string>;
+};
+
+function TagList({ tags }: TagListProps) {
+  const colorsWithText = [
+    { background: "#80cbc4", text: "#000000" }, // Teal-200
+    { background: "#00796b", text: "#ffffff" }, // Teal-700
+    { background: "#fce4ec", text: "#333333" }, // Rose-100
+    { background: "#f06292", text: "#ffffff" }, // Rose-500
+    { background: "#cfd8dc", text: "#333333" }, // Gray-300
+    { background: "#757575", text: "#f5f5f5" }, // Gray-600
+    { background: "#aed581", text: "#333333" }, // Lime-400
+    { background: "#ffd54f", text: "#333333" }, // Yellow-400
+    { background: "#42a5f5", text: "#ffffff" }, // Blue-400
+    { background: "#7986cb", text: "#f5f5f5" }, // Indigo-300
+    { background: "#ab47bc", text: "#f5f5f5" }, // Violet-400
+    { background: "#f48fb1", text: "#ffffff" }, // Fuchsia-400
+  ];
+
+  const coloredTags = tags.map((tag) => {
+    const charCodeSum = tag.split("").reduce((acc, curr) => {
+      return acc + curr.charCodeAt(0);
+    }, 0);
+
+    const colorIndex = charCodeSum % colorsWithText.length;
+
+    return {
+      ...colorsWithText[colorIndex],
+      tag,
+    };
+  });
+
+  return (
+    <div className="flex gap-2 flex-wrap">
+      {coloredTags.map(({ background, text, tag }) => (
+        <div
+          key={background}
+          className="py-1 px-2 rounded-full inline text-sm"
+          style={{
+            background,
+            color: text,
+          }}
+        >
+          {tag}
+        </div>
+      ))}
     </div>
   );
 }
