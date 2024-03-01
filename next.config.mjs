@@ -1,10 +1,10 @@
-import './env.mjs';
+import "./env.mjs";
 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
   experimental: {
-    ppr: true,
+    /* ppr: true, */
   },
 };
 
