@@ -27,7 +27,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <div className=" mb-8 sticky top-0 bg-slate-900">
+          <div className=" mb-8 sticky top-0 bg-slate-900 z-[999]">
             <div className="p-2">
               <div className="container mx-auto flex justify-between">
                 <div className="flex gap-2">
