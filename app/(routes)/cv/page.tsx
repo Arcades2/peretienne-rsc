@@ -298,7 +298,7 @@ function TagList({ tags }: TagListProps) {
     <div className="flex gap-2 flex-wrap">
       {coloredTags.map(({ background, text, tag }) => (
         <div
-          key={background}
+          key={tag}
           className="py-1 px-2 rounded-full inline text-sm"
           style={{
             background,

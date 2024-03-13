@@ -3,9 +3,7 @@ import "./env.mjs";
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  experimental: {
-    /* ppr: true, */
-  },
+  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
 };
 
 export default nextConfig;

@@ -1,0 +1,236 @@
+---
+title: "@tanstack/react-router"
+subtitle: The typesafe router
+date: 2024/03/13
+tags:
+  - tanstack
+  - router
+  - typescript
+  - react-query
+---
+
+# TanStack gets bigger
+
+Once again, [Tanner Linsley](https://twitter.com/tannerlinsley) and his team
+are releasing a new library accompanied by a promotional video..
+
+<Tweet id="1738709130213560497" />
+
+I was so hyped when I saw this. I'm a devoted fan of Tanner's team and their work,
+especially [@tanstack/react-query](https://tanstack.com/query/latest), so I had
+to give it a try.
+
+# File based routing
+
+The first feature that caught my attention was the file-based routing. While
+code-based routing is also possible, the library recommends against it.
+Personally, I'm not a huge fan of the directory-centric approach in Next.js, so
+the flat routing structure here appealed to me. After experimenting with it, I
+realized that embedding data fetching, suspense fallback component , and error
+handling within route declarations could make code-based routing somewhat
+challenging to maintain.
+
+Let's see those file conventions :
+
+- `__root.tsx`: This serves as the root route of your app and is mandatory. It
+  must reside at the root of your "routesDirectory" (defaulting to "routes")
+- `.` separator: Use the dot separator to create nested routes. For example,
+  `users.profile.tsx` will generate a route `/users/profile`.
+- `$` token: Employ the dollar token to create dynamic routes. For instance,
+  `users.$id.tsx` will result in a route `/users/:id`.
+- `_` prefix: Routes segments starting with an underscore will create "layout"
+  routes. For example `_private.profile.tsx` will create a route `/profile`
+  that is nested under a private layout.
+- `_` suffix: Segments ending with the _ suffix exclude the route from being
+  nested under any parent routes. For example, if there is a route `users.tsx`,
+  creating a route `users_.profile.tsx`ensures that our profile page won't be
+rendered as a child of`users.tsx`, making them more like siblings.
+- `(folder)` folder name pattern: To group some routes without influencing the
+  URL, you can create a folder like "(posts)" and inside group all routes
+  related to posts.
+- `.lazy.tsx`: You can use the `.lazy.tsx` extension to code split route
+  components. `blog.post.lazy.tsx` will be used as the component for the
+  `blog.post.tsx` route.
+
+The existence of `.lazy.tsx` files is due to the library not yet handling code
+extraction automatically.You have to split your code manually between
+"Critical" (path parsing, search param validation, loaders, ...) and
+non-critical ones (route components)
+
+So, for a route with a loader, it looks like this :
+
+_routes/blog.post.tsx_
+
+```tsx
+import { createFileRoute } from "@tanstack/react-router";
+import { getPost } from "../api/posts";
+
+export const Route = createFileRoute("/blog/post")({
+  loader: async () => {
+    return await getPost();
+  },
+});
+```
+
+_routes/blog.post.lazy.tsx_
+
+```tsx
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+export const Route = createLazyFileRoute("/blog/post")({
+  component: Posts,
+});
+
+function Posts() {
+  // ...
+}
+```
+
+Yeah..., kind of weird to have two files for a single route. It is for sure
+different than other lib but I did not have looked at it in the long term.
+Second, it is v1 so maybe, one day, we would have code-extraction to colocate
+loaders and components.
+
+## Type safety
+
+What about type safety? Well, it's as robust as ever with Tanner's team.
+
+Here is a Link component:
+Take for example the `Link` component.
+
+<div className="flex flex-col items-center">
+  <Image src="/typesafe-link-path.png" width="488" height="129" />
+  <Image src="/missing-params.png" width="671" height="163" />
+  <Image src="/link-typesafe-params.png" width="1085" height="80" />
+</div>
+
+Search parameters can be validated with `zod` and thus be type-safe, as is imperative navigation!
+
+<Image src="/typesafe-search-params.png" width="866" height="949" />
+
+**It's incredibly reassuring to know that you can't go wrong with links, search
+parameters, dynamic routes, and more.**
+
+# Data fetching
+
+The library is also handling data fetching at route level. While `react-router`
+has been doing that since v6, it doesn't do it in a type-safe manner. Loaders
+offer an efficient means of fetching data, as all nested route loaders are
+invoked in parallel. As stated in the documentation, "The router is the best
+place to coordinate these async dependencies, as it's usually the only place in
+your app that knows where users are headed before content is rendered."
+
+So, let's see how it looks like :
+
+<div className="flex flex-col items-center">
+  <div>
+    <em>routes/characters.$id.tsx</em>
+    <Image src="/character_page_loader.png" width="1399" height="785" />
+  </div>
+  <div>
+    <em>routes/characters.$id.lazy.tsx</em>
+    <Image src="/character_page_component.png" width="1259" height="781" />
+  </div>
+</div>
+
+And guess what ? The return of `useLoaderData` matches the expected type:
+
+<Image src="/useLoaderData.png" width="821" height="461" />
+
+In addition to the features offered by react-router, this library provides
+caching. Here are the pros and cons extracted from the documentation:
+TanStack Router Cache Pros:
+
+- Built-in, easy to use, no extra dependencies
+- Handles deduping, preloading, loading, stale-while-revalidate, background refetching on a per-route basis
+- Coarse invalidation (invalidate all routes and cache at once)
+- Automatic garbage collection
+- Works great for apps that share little data between routes
+- "Just works" for SSR
+
+TanStack Router Cache Cons:
+
+- No persistence adapters/model
+- No shared caching/deduping between routes
+- No built-in mutation APIs (a basic useMutation hook is provided in many examples that may be sufficient for many use cases)
+- No built-in cache-level optimistic update APIs (you can still use ephemeral state from something like a useMutation hook to achieve this at the component level)
+
+It is much than decent but if you think you need something more robust, let's add to the stack tanstack/query !
+
+# Perfect fit with React Query
+
+I am a big fan of `react-query` and I am so happy to see that `@tanstack/react-router` is a perfect fit with it.
+
+First, I declare my queries (Please read this cool (as always) blog post by TkDodo : [The Query Options API](https://tkdodo.eu/blog/the-query-options-api)):
+
+<Image src="/query-options.png" width="997" height="954" />
+
+Then, I use them in my loader:
+
+<Image src="/loaders-characters.png" width="757" height="367" />
+
+`ensureQueryData` will either return the data is already in the cache or fetch it.
+
+Finally, I can use the `useQuery` hook in my component (specifically the
+useSuspenseQuery hook to avoid managing loading and error states):
+
+<Image src="/component.png" width="861" height="947" />
+
+Viewing it in this light may seem a bit verbose for no apparent gain, but it
+brings some benefits:
+
+- The cache is shared between the router and the rest of the app.
+- I can use the `useQuery` hook in nested components without prop drilling.
+  While @tanstack/router does offer a
+  [`getRouteApi`](https://tanstack.com/router/latest/docs/framework/react/guide/code-splitting#manually-accessing-route-apis-in-other-files-with-the-routeapi-class)
+  to retrieve route info like loader data, my component
+  must be within that specific route. Utilizing react-query makes it easier to
+  move my component anywhere in the app. If the route where it fits doesn't
+  have the necessary data fetched, the useQuery hook will handle it.
+- I can perform optimistic updates and mutations with react-query.
+
+# Private routes
+
+One common requirements is managing private sections of the app.
+
+Here's what I've found, though I'm not entirely sure it's the best approach:
+
+_routes/\_private.tsx_
+
+```tsx
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { meQueryOptions } from "../queries/users";
+
+export const Route = createFileRoute("/_private")({
+  beforeLoad: async ({ context }) => {
+    const me = context.queryClient.ensureQueryData(meQueryOptions);
+
+    if (!me)
+      throw redirect({
+        to: "/",
+        search: {
+          redirect: location.href,
+        },
+      });
+  },
+});
+```
+
+So, it is a layout route where in the `beforeLoad` function, I check if the
+user is currently logged in. If not, I redirect to the home page with a
+`redirect` function. The `search` object is used to pass the current location
+to the home page so it can redirect back to the private page after the user
+logs in.
+
+Just need to prefix all private routes with `_private` and you are all set. (`_private.profile.tsx`)
+
+# Conclusion
+
+TanStack Router looks amazing. It is a bit different than what we are used to
+but it seems to be for the best. Typesafety is at the center of the lib and it
+is so good. Data fetching is also handled in a very efficient way and it is a
+perfect fit with `react-query`. I am so excited to see where it will go and I
+am sure it will be a big success.
+
+If I have an SPA project to start, I would definitely give it a try and make me
+even more dependent to TanStack libraries !

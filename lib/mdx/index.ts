@@ -1,10 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import { compileMDX } from 'next-mdx-remote/rsc';
-import readingTime from '@/utils/readingTime';
-import rehypeHighlight from 'rehype-highlight';
+import React from "react";
+import fs from "fs";
+import path from "path";
+import { compileMDX } from "next-mdx-remote/rsc";
+import readingTime from "@/utils/readingTime";
+import rehypeHighlight from "rehype-highlight";
+import { Tweet } from "react-tweet";
+import Image from "next/image";
 
-const rootDirectory = path.join(process.cwd(), 'posts');
+const rootDirectory = path.join(process.cwd(), "posts");
 
 export type PostFrontMatter = {
   title: string;
@@ -21,13 +24,27 @@ export type PostMeta = PostFrontMatter & {
 export type Post = ReturnType<typeof getPostBySlug>;
 
 export const getPostBySlug = async (slug: string) => {
-  const realSlug = slug.replace(/\.mdx$/, '');
+  const realSlug = slug.replace(/\.mdx$/, "");
   const filePath = path.join(rootDirectory, `${realSlug}.mdx`);
 
-  const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
+  const fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
 
   const { frontmatter, content } = await compileMDX<PostFrontMatter>({
     source: fileContent,
+    components: {
+      Tweet: (props: React.ComponentProps<typeof Tweet>) => {
+        return React.createElement(
+          "div",
+          {
+            className: "not-prose flex justify-center",
+          },
+          React.createElement(Tweet, props),
+        );
+      },
+      Image: (props: React.ComponentProps<typeof Image>) => {
+        return React.createElement(Image, props);
+      },
+    },
     options: {
       parseFrontmatter: true,
       mdxOptions: {
