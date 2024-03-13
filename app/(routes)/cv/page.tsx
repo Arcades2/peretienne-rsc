@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import CvNav from '@/app/_components/CvNav';
+import Image from "next/image";
+import CvNav from "@/app/_components/CvNav";
 
 export default function CvPage() {
   return (
@@ -11,31 +11,31 @@ export default function CvPage() {
         <section id="presentation" className="scroll-my-16 cv-sections">
           <h2># Presentation</h2>
           <p>
-            With three and a half years&apos; experience at{' '}
+            With three and a half years&apos; experience at{" "}
             <a href="https://integragen.com/" target="_blank">
               Integragen
-            </a>{' '}
-            (now{' '}
+            </a>{" "}
+            (now{" "}
             <a href="https://oncodna.com/" target="_blank">
               OncoDNA
             </a>
             ), I have made a significant contribution to projects in the field
             of biotechnology. I played a key role in the maintenance and
-            enhancement of{' '}
+            enhancement of{" "}
             <a href="https://integragen.com/mercury" target="_blank">
               Mercury
             </a>
-            ,{' '}
+            ,{" "}
             <a
               href="https://web.archive.org/web/20221129111314/https://integragen.com/bioinformatics-2/sirius"
               target="_blank"
             >
               Sirius
-            </a>{' '}
-            and{' '}
+            </a>{" "}
+            and{" "}
             <a href="https://oncodna.com/clinical-oncokdm/" target="_blank">
               OncoKDM
-            </a>{' '}
+            </a>{" "}
             SaaS, medical tools for oncology interpretation and rare disease
             genome analysis. In particular, I managed Mercury&apos;s transition
             to React, helped redesign its Symfony API, and successfully migrated
@@ -76,30 +76,30 @@ export default function CvPage() {
             dates="06/2020 - 02/2024"
             localisation="Evry"
             logo={{
-              src: '/logo_oncodna.svg',
-              alt: 'Logo OncoDNA',
+              src: "/logo_oncodna.svg",
+              alt: "Logo OncoDNA",
             }}
             tags={[
-              'React',
-              'MUI',
-              'react-query',
-              'Symfony',
-              'Python',
-              'Google Cloud Platform',
-              'CICD',
-              'FastAPI',
-              'Node.js',
-              'Docker',
-              'ElasticSearch',
-              'Jira',
+              "React",
+              "MUI",
+              "react-query",
+              "Symfony",
+              "Python",
+              "Google Cloud Platform",
+              "CICD",
+              "FastAPI",
+              "Node.js",
+              "Docker",
+              "ElasticSearch",
+              "Jira",
             ]}
           >
             <p>
-              Maintained and enhanced SaaS platforms{' '}
+              Maintained and enhanced SaaS platforms{" "}
               <a href="https://integragen.com/mercury" target="_blank">
                 Mercury
-              </a>{' '}
-              and{' '}
+              </a>{" "}
+              and{" "}
               <a
                 href="https://web.archive.org/web/20221129111314/https://integragen.com/bioinformatics-2/sirius"
                 target="_blank"
@@ -107,15 +107,15 @@ export default function CvPage() {
                 Sirius
               </a>
               , specializing in oncological interpretation and rare disease
-              genome analysis. Led transition of{' '}
+              genome analysis. Led transition of{" "}
               <a href="https://integragen.com/mercury" target="_blank">
                 Mercury
-              </a>{' '}
+              </a>{" "}
               to React and Symfony API overhaul. Successfully completed
-              migration of{' '}
+              migration of{" "}
               <a href="https://oncodna.com/clinical-oncokdm/" target="_blank">
                 OncoKDM
-              </a>{' '}
+              </a>{" "}
               from AngularJS to React. Developed Python/Node.js microservices
               for gene alias retrieval, bioinformatics pipeline automation, etc.
               Proficient in React, PHP, Python, GCP, and microservices
@@ -128,18 +128,18 @@ export default function CvPage() {
             dates="02/2018 - 12/2019"
             localisation="Pau"
             logo={{
-              src: '/place-au-cirque.png',
-              alt: 'Place au Cirque logo',
+              src: "/place-au-cirque.png",
+              alt: "Place au Cirque logo",
             }}
             tags={[
-              'React',
-              'Symfony',
-              'React Native',
-              'Expo',
-              'MongoDB',
-              'Vuforia',
-              'Node.js',
-              'Socket.io',
+              "React",
+              "Symfony",
+              "React Native",
+              "Expo",
+              "MongoDB",
+              "Vuforia",
+              "Node.js",
+              "Socket.io",
             ]}
           >
             <p>
@@ -163,7 +163,7 @@ export default function CvPage() {
             company="Wehub"
             dates="04/2017 - 02/2018"
             localisation="Pau"
-            tags={['Wordpress', 'Symfony', 'ElasticSearch', 'MongoDB']}
+            tags={["Wordpress", "Symfony", "ElasticSearch", "MongoDB"]}
           >
             <p>
               As an entrepreneur, Wehub, a co-working and web solutions
@@ -195,15 +195,15 @@ export default function CvPage() {
           <p>Telephone: 06 37 44 95 13</p>
           <p>Mail: peret.etienne@gmail.com</p>
           <p>
-            Github:{' '}
+            Github:{" "}
             <a href="https://github.com/Arcades2" target="_blank">
               https://github.com/Arcades2
             </a>
           </p>
           <p>
-            Linkedin:{' '}
+            Linkedin:{" "}
             <a href="https://www.linkedin.com/in/etienne-peret" target="_blank">
-              https://www.linkedin.com/in/etienne-peret{' '}
+              https://www.linkedin.com/in/etienne-peret{" "}
             </a>
           </p>
         </section>
@@ -218,7 +218,7 @@ type ExperienceProps = {
   logo?: React.ComponentProps<typeof Image>;
   localisation: string;
   children: any;
-  tags: React.ComponentProps<typeof TagList>['tags'];
+  tags: React.ComponentProps<typeof TagList>["tags"];
 };
 
 function Experience({
@@ -267,22 +267,22 @@ type TagListProps = {
 
 function TagList({ tags }: TagListProps) {
   const colorsWithText = [
-    { background: '#80cbc4', text: '#000000' }, // Teal-200
-    { background: '#00796b', text: '#ffffff' }, // Teal-700
-    { background: '#fce4ec', text: '#333333' }, // Rose-100
-    { background: '#f06292', text: '#ffffff' }, // Rose-500
-    { background: '#cfd8dc', text: '#333333' }, // Gray-300
-    { background: '#757575', text: '#f5f5f5' }, // Gray-600
-    { background: '#aed581', text: '#333333' }, // Lime-400
-    { background: '#ffd54f', text: '#333333' }, // Yellow-400
-    { background: '#42a5f5', text: '#ffffff' }, // Blue-400
-    { background: '#7986cb', text: '#f5f5f5' }, // Indigo-300
-    { background: '#ab47bc', text: '#f5f5f5' }, // Violet-400
-    { background: '#f48fb1', text: '#ffffff' }, // Fuchsia-400
+    { background: "#80cbc4", text: "#000000" }, // Teal-200
+    { background: "#00796b", text: "#ffffff" }, // Teal-700
+    { background: "#fce4ec", text: "#333333" }, // Rose-100
+    { background: "#f06292", text: "#ffffff" }, // Rose-500
+    { background: "#cfd8dc", text: "#333333" }, // Gray-300
+    { background: "#757575", text: "#f5f5f5" }, // Gray-600
+    { background: "#aed581", text: "#333333" }, // Lime-400
+    { background: "#ffd54f", text: "#333333" }, // Yellow-400
+    { background: "#42a5f5", text: "#ffffff" }, // Blue-400
+    { background: "#7986cb", text: "#f5f5f5" }, // Indigo-300
+    { background: "#ab47bc", text: "#f5f5f5" }, // Violet-400
+    { background: "#f48fb1", text: "#ffffff" }, // Fuchsia-400
   ];
 
   const coloredTags = tags.map((tag) => {
-    const charCodeSum = tag.split('').reduce((acc, curr) => {
+    const charCodeSum = tag.split("").reduce((acc, curr) => {
       return acc + curr.charCodeAt(0);
     }, 0);
 
