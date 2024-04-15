@@ -4,10 +4,10 @@ import CvNav from "@/app/_components/CvNav";
 export default function CvPage() {
   return (
     <div className="container mx-auto">
-      <div className="fixed top-[110px]">
+      <div className="fixed top-[110px] hidden md:block">
         <CvNav />
       </div>
-      <div className="container mx-auto prose dark:prose-invert md:prose-lg print:prose">
+      <div className="container mx-auto prose dark:prose-invert md:prose-lg print:prose p-4">
         <section id="presentation" className="scroll-my-16 cv-sections">
           <h2># Presentation</h2>
           <p>
