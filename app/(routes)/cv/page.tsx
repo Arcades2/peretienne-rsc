@@ -7,7 +7,7 @@ export default function CvPage() {
       <div className="fixed top-[110px] hidden md:block">
         <CvNav />
       </div>
-      <div className="container mx-auto prose dark:prose-invert md:prose-lg print:prose p-4">
+      <div className="container mx-auto prose prose-invert md:prose-lg print:prose p-4">
         <section id="presentation" className="scroll-my-16 cv-sections">
           <h2># Presentation</h2>
           <p>
